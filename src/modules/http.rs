@@ -64,7 +64,7 @@ unsafe extern "win64" fn on_make_initial_url(reg: *mut Registers, _: usize) {
     let mut new_url = if url.contains("/query_region_list") {
         String::from("http://106.53.39.118:8888")
     } else {
-        String::from("http://106.53.39.118:8888")
+        String::from("http://106.53.39.118:22101")
     };
 
     url.split('/').skip(3).for_each(|s| {
@@ -86,7 +86,7 @@ unsafe extern "win64" fn on_browser_load_url(reg: *mut Registers, _: usize) {
     let slice = std::slice::from_raw_parts(str_ptr, (str_length * 2) as usize);
     let url = String::from_utf16le(slice).unwrap();
 
-    let mut new_url = String::from("http://106.53.39.118:8888");
+    let mut new_url = String::from("http://106.53.39.118:22101");
     url.split('/').skip(3).for_each(|s| {
         new_url.push_str("/");
         new_url.push_str(s);
