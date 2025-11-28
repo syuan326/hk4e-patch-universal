@@ -39,3 +39,11 @@ jobs:
     # Rust 测试（可选，不需要可以删掉）
     - name: Run tests
       run: cargo test --verbose
+
+    # 上传编译产物
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: hk4e-patch-release
+        path: target/release/
+
