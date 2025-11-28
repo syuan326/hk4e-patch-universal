@@ -16,7 +16,26 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
+    # 安装 Rust nightly
+    - name: Install Rust nightly
+      run: |
+        rustup toolchain install nightly
+        rustup default nightly
+
+    # 安装 Windows 构建所需工具 (MSVC & Windows SDK)
+    - name: Install MSVC Build Tools
+      uses: microsoft/setup-msbuild@v2
+
+    # 设置好环境变量，使 C++ 编译器可用
+    - name: Add MSVC to PATH
+      run: |
+        echo "C:\Program Files (x86)\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC" >> $env:GITHUB_PATH
+
+    # Rust 构建
     - name: Build
-      run: cargo build --verbose
+      run: cargo build --release --verbose
+
+    # Rust 测试（可选，不需要可以删掉）
     - name: Run tests
       run: cargo test --verbose
